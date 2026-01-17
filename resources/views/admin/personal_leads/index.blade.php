@@ -111,14 +111,11 @@
                                         <a href="{{ route('admin.personal-leads.edit', $lead) }}" class="btn btn-sm btn-warning" title="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <form action="{{ route('admin.personal-leads.destroy', $lead) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" 
-                                                    onclick="return confirm('Are you sure?')" title="Delete">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
+                                        <button type="button" class="btn btn-sm btn-danger delete-btn" 
+                                                data-url="{{ route('admin.personal-leads.destroy', $lead) }}"
+                                                title="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -144,9 +141,16 @@
     </div>
 </form>
 
+<!-- Single Delete Form -->
+<form id="singleDeleteForm" action="" method="POST" style="display:none">
+    @csrf
+    @method('DELETE')
+</form>
+
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Bulk Delete functionality
         const selectAll = document.getElementById('selectAll');
         const checkboxes = document.querySelectorAll('.lead-checkbox');
         const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
@@ -165,15 +169,30 @@
             selectAll.checked = (checkedCount === checkboxes.length && checkboxes.length > 0);
         }
 
-        selectAll.addEventListener('change', function() {
-            checkboxes.forEach(cb => {
-                cb.checked = selectAll.checked;
+        if (selectAll) {
+            selectAll.addEventListener('change', function() {
+                checkboxes.forEach(cb => {
+                    cb.checked = selectAll.checked;
+                });
+                updateBulkDeleteButton();
             });
-            updateBulkDeleteButton();
-        });
+        }
 
         checkboxes.forEach(cb => {
             cb.addEventListener('change', updateBulkDeleteButton);
+        });
+
+        // Single Delete functionality
+        const deleteBtns = document.querySelectorAll('.delete-btn');
+        const singleDeleteForm = document.getElementById('singleDeleteForm');
+
+        deleteBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to delete this personal lead?')) {
+                    singleDeleteForm.action = this.dataset.url;
+                    singleDeleteForm.submit();
+                }
+            });
         });
     });
 </script>
