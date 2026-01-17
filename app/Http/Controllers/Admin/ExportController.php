@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Lead;
+use App\Models\PersonalLead;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exports\LeadsExport;
@@ -12,18 +13,22 @@ class ExportController extends Controller
 {
     public function export(Request $request)
     {
+        $type = $request->input('type', 'general');
         $columns = $request->input('columns', ['id', 'name', 'address', 'phone', 'website', 'review']);
         $format = $request->input('format', 'xlsx'); // xlsx or pdf
         
         // Get filtered leads
-        $query = Lead::query();
+        $model = ($type === 'personal') ? PersonalLead::class : Lead::class;
+        $query = $model::query();
         
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
                   ->orWhere('address', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%");
+                  ->orWhere('phone', 'like', "%{$search}%")
+                  ->orWhere('website', 'like', "%{$search}%")
+                  ->orWhere('review', 'like', "%{$search}%");
             });
         }
         
@@ -39,7 +44,7 @@ class ExportController extends Controller
         
         $export = new LeadsExport($leads, $columns, $isPdf);
         
-        $filename = 'leads-' . date('Y-m-d') . '.' . $format;
+        $filename = ($type === 'personal' ? 'personal-' : '') . 'leads-' . date('Y-m-d') . '.' . $format;
         
         if ($format === 'pdf') {
             return Excel::download($export, $filename, \Maatwebsite\Excel\Excel::DOMPDF);
