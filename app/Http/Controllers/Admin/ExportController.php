@@ -13,6 +13,9 @@ class ExportController extends Controller
 {
     public function export(Request $request)
     {
+        ini_set('memory_limit', '1024M');
+        set_time_limit(300);
+        
         $type = $request->input('type', 'general');
         $columns = $request->input('columns', ['id', 'name', 'address', 'phone', 'website', 'review']);
         $format = $request->input('format', 'xlsx'); // xlsx or pdf
