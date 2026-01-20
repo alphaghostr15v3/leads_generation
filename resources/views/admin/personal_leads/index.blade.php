@@ -81,7 +81,7 @@
                             <th>Phone</th>
                             <th>Website</th>
                             <th>Review</th>
-                            <th>Created At</th>
+                            <!-- <th>Created At</th> -->
                             <th style="min-width: 100px;">Actions</th>
                         </tr>
                     </thead>
@@ -105,7 +105,7 @@
                                     @endif
                                 </td>
                                 <td>{{ Str::limit($lead->review, 50) }}</td>
-                                <td>{{ optional($lead->created_at)->format('Y-m-d') ?? 'N/A' }}</td>
+                                <!-- <td>{{ optional($lead->created_at)->format('Y-m-d') ?? 'N/A' }}</td> -->
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('admin.personal-leads.edit', $lead) }}" class="btn btn-sm btn-warning" title="Edit">
