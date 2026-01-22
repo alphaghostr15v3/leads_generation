@@ -75,7 +75,8 @@
                             <th style="width: 40px;">
                                 <input type="checkbox" id="selectAll" class="form-check-input">
                             </th>
-                            <th>ID</th>
+                            <th>S.No</th>
+                            <!-- <th>ID</th> -->
                             <th>Name</th>
                             <th>Address</th>
                             <th>Phone</th>
@@ -91,7 +92,8 @@
                                 <td>
                                     <input type="checkbox" name="ids[]" value="{{ $lead->id }}" class="form-check-input lead-checkbox">
                                 </td>
-                                <td>{{ $lead->id }}</td>
+                                <td>{{ ($leads->currentPage() - 1) * $leads->perPage() + $loop->iteration }}</td>
+                                <!-- <td>{{ $lead->id }}</td> -->
                                 <td>{{ $lead->name }}</td>
                                 <td>{{ Str::limit($lead->address, 50) }}</td>
                                 <td>{{ $lead->phone }}</td>
@@ -121,7 +123,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9" class="text-center text-muted">No personal leads found</td>
+                                <td colspan="10" class="text-center text-muted">No personal leads found</td>
                             </tr>
                         @endforelse
                     </tbody>
