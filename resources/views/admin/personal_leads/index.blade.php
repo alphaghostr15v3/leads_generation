@@ -79,6 +79,8 @@
                             <!-- <th>ID</th> -->
                             <th>Name</th>
                             <th>Address</th>
+                            <th>City</th>
+                            <th>State</th>
                             <th>Phone</th>
                             <th>Website</th>
                             <th>Review</th>
@@ -96,6 +98,8 @@
                                 <!-- <td>{{ $lead->id }}</td> -->
                                 <td>{{ $lead->name }}</td>
                                 <td>{{ Str::limit($lead->address, 50) }}</td>
+                                <td>{{ $lead->city }}</td>
+                                <td>{{ $lead->state }}</td>
                                 <td>{{ $lead->phone }}</td>
                                 <td>
                                     @if($lead->website)
@@ -239,6 +243,14 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="columns[]" value="phone" checked>
                                     <label class="form-check-label">Phone</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="columns[]" value="city" checked>
+                                    <label class="form-check-label">City</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="columns[]" value="state" checked>
+                                    <label class="form-check-label">State</label>
                                 </div>
                             </div>
                             <div class="col-6">

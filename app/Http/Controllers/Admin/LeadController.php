@@ -19,6 +19,8 @@ class LeadController extends Controller
                 $q->where('name', 'like', "%{$search}%")
                   ->orWhere('address', 'like', "%{$search}%")
                   ->orWhere('phone', 'like', "%{$search}%")
+                  ->orWhere('city', 'like', "%{$search}%")
+                  ->orWhere('state', 'like', "%{$search}%")
                   ->orWhere('website', 'like', "%{$search}%")
                   ->orWhere('review', 'like', "%{$search}%");
             });
@@ -47,6 +49,8 @@ class LeadController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'nullable|string',
+            'city' => 'nullable|string|max:255',
+            'state' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:50',
             'website' => 'nullable|url|max:255',
             'review' => 'nullable|string',
@@ -68,6 +72,8 @@ class LeadController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'nullable|string',
+            'city' => 'nullable|string|max:255',
+            'state' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:50',
             'website' => 'nullable|url|max:255',
             'review' => 'nullable|string',

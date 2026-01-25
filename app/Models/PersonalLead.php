@@ -9,6 +9,8 @@ class PersonalLead extends Model
     protected $fillable = [
         'name',
         'address',
+        'city',
+        'state',
         'phone',
         'website',
         'review',
