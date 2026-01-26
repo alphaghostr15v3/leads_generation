@@ -24,7 +24,7 @@
             <div class="col-md-4">
                 <label class="form-label">Search</label>
                 <input type="text" name="search" class="form-control" value="{{ request('search') }}" 
-                       placeholder="Search by name, address, phone...">
+                       placeholder="Search by name, address, phone, city, state...">
             </div>
             <div class="col-md-3">
                 <label class="form-label">Date From</label>
