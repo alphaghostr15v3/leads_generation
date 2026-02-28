@@ -24,7 +24,7 @@
             <div class="col-md-4">
                 <label class="form-label">Search</label>
                 <input type="text" name="search" class="form-control" value="{{ request('search') }}" 
-                       placeholder="Search by name, address, phone, city, state...">
+                       placeholder="Search by name, category, address, phone, city, state...">
             </div>
             <div class="col-md-3">
                 <label class="form-label">Date From</label>
@@ -78,6 +78,7 @@
                             <th>S.No</th>
                             <!-- <th>ID</th> -->
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Address</th>
                             <th>City</th>
                             <th>State</th>
@@ -97,6 +98,7 @@
                                 <td>{{ ($leads->currentPage() - 1) * $leads->perPage() + $loop->iteration }}</td>
                                 <!-- <td>{{ $lead->id }}</td> -->
                                 <td>{{ $lead->name }}</td>
+                                <td>{{ $lead->category_name ?? 'N/A' }}</td>
                                 <td>{{ Str::limit($lead->address, 50) }}</td>
                                 <td>{{ $lead->city }}</td>
                                 <td>{{ $lead->state }}</td>
@@ -235,6 +237,10 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="columns[]" value="name" checked>
                                     <label class="form-check-label">Name</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="columns[]" value="category_name" checked>
+                                    <label class="form-check-label">Category</label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="columns[]" value="address" checked>

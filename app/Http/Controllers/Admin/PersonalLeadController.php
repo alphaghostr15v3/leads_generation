@@ -17,6 +17,7 @@ class PersonalLeadController extends Controller
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('category_name', 'like', "%{$search}%")
                   ->orWhere('address', 'like', "%{$search}%")
                   ->orWhere('phone', 'like', "%{$search}%")
                   ->orWhere('city', 'like', "%{$search}%")
@@ -48,6 +49,7 @@ class PersonalLeadController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'category_name' => 'nullable|string|max:255',
             'address' => 'nullable|string',
             'city' => 'nullable|string|max:255',
             'state' => 'nullable|string|max:255',
@@ -71,6 +73,7 @@ class PersonalLeadController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'category_name' => 'nullable|string|max:255',
             'address' => 'nullable|string',
             'city' => 'nullable|string|max:255',
             'state' => 'nullable|string|max:255',

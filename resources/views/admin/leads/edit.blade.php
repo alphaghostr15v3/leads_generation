@@ -24,6 +24,15 @@
                     </div>
 
                     <div class="mb-3">
+                        <label class="form-label">Category Name</label>
+                        <input type="text" name="category_name" class="form-control @error('category_name') is-invalid @enderror" 
+                               value="{{ old('category_name', $lead->category_name) }}">
+                        @error('category_name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
                         <label class="form-label">Address</label>
                         <textarea name="address" class="form-control @error('address') is-invalid @enderror" 
                                   rows="3">{{ old('address', $lead->address) }}</textarea>
